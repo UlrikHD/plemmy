@@ -1339,6 +1339,9 @@ class LemmyHttp(object):
         Raises:
             requests.ConnectionError: if no connection to server could be made
 
+        Raises:
+            requests.ConnectionError: if no connection to server could be made
+
         Returns:
             requests.Response: result of API call
         """
@@ -1347,7 +1350,7 @@ class LemmyHttp(object):
         re = post_handler(self._session, f"{self._api_url}/user/login", form)
         if not isinstance(re, requests.Response):
             raise requests.ConnectionError("Login failed as no connection to server could be made.")
-        if re.status_code == 200:
+        elif re.status_code == 200:
             self._session = create_session(self._headers, re.json()["jwt"])
         return re
 
